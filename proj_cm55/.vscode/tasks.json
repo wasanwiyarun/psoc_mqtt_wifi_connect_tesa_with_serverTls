@@ -1,0 +1,203 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "make -j16 build_proj"
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe -j16 build_proj"
+                ]
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "make clean_proj"
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe clean_proj"
+                ]
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Rebuild",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Clean",
+                "Build"
+            ],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build Application",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; make build TOOLCHAIN=GCC_ARM CONFIG=Debug "
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe build TOOLCHAIN=GCC_ARM CONFIG=Debug"
+                ]
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Program",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "make -j16 program_proj"
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe -j16 program_proj"
+                ]
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Rebuild:proj_cm55",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Clean:proj_cm55",
+                "Build:proj_cm55"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean:proj_cm55",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; make clean_proj  "
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe clean_proj "
+                ]
+            }
+        },
+        {
+            "label": "Build:proj_cm55",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; make build_proj TOOLCHAIN=GCC_ARM CONFIG=Debug "
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe build_proj TOOLCHAIN=GCC_ARM CONFIG=Debug"
+                ]
+            },
+            "problemMatcher": {
+                "base": "$gcc"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build & Program:proj_cm55",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; make program_proj TOOLCHAIN=GCC_ARM CONFIG=Debug "
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe program_proj TOOLCHAIN=GCC_ARM CONFIG=Debug"
+                ]
+            },
+            "problemMatcher": {
+                "base": "$gcc"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Quick Program:proj_cm55",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                "--norc",
+                "-c",
+                "export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; make qprogram_proj  "
+            ],
+            "windows": {
+                "command": "${config:modustoolbox.toolsPath}/modus-shell/bin/bash.exe",
+                "args": [
+                    "--norc",
+                    "-c",
+                    "export PATH=/bin:/usr/bin:$PATH ; export CY_TOOLS_PATHS=${config:modustoolbox.toolsPath} ; ${config:modustoolbox.toolsPath}/modus-shell/bin/make.exe qprogram_proj "
+                ]
+            }
+        }
+    ]
+}
